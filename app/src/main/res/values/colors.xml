@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="select_attraction">#C6E1E1</color>
+    <color name="line">#ADC5C5</color>
+    <color name="line_shadow">#778C8C</color>
 </resources>

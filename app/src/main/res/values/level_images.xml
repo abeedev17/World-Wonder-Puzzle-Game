@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="level_images">
+        <item>level_1_icon</item>
+        <item>level_2_icon</item>
+        <item>level_3_icon</item>
+        <item>level_4_icon</item>
+        <item>level_5_icon</item>
+        <item>level_6_icon</item>
+        <item>level_7_icon</item>
+        <item>level_8_icon</item>
+        <item>level_9_icon</item>
+        <item>level_10_icon</item>
+    </string-array>
+</resources>

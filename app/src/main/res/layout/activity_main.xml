@@ -5,14 +5,104 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:paddingTop="24dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
     tools:context=".MainActivity">
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Hello World!"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+    <ImageButton
+        android:id="@+id/menu_btn"
+        android:layout_width="30dp"
+        android:layout_height="24dp"
+        android:src="@drawable/menu_btn"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/top_icon"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            />
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_title"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:textSize="19dp"
+            android:fontFamily="@font/plus_jakarta_sans"
+            android:textFontWeight="800"
+            android:textColor="@color/white"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp">
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Line before text -->
+            <View
+                android:id="@+id/line_before_text"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/text_select_attraction"
+                android:background="@color/select_attraction"
+                android:layout_marginEnd="8dp"/>
+
+            <!-- Text View -->
+            <TextView
+                android:id="@+id/text_select_attraction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/plus_jakarta_sans"
+                android:textSize="22dp"
+                android:textFontWeight="700"
+                android:textColor="@color/select_attraction"
+                android:text="@string/select_attraction"
+                />
+
+            <!-- Line after text -->
+            <View
+                android:id="@+id/line_after_text"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/text_select_attraction"
+                android:background="@color/select_attraction"
+                android:layout_marginStart="8dp"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/select_attraction"
+            android:layout_centerVertical="true"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="32dp"
+            android:layout_centerVertical="true"
+            android:background="@color/line"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_centerVertical="true"
+            android:background="@color/line_shadow"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/level_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
