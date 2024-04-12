@@ -2,5 +2,16 @@
     <string name="app_name">Derspuzlle</string>
     <string name="text_title">Modern Wonders Puzzle</string>
     <string name="select_attraction">SELECT AN ATTRACTION</string>
+    <string name="jigsaw_puzzle">jigsaw puzzle</string>
 
+    <string name="level_string_1">THE SYDNEY OPERA HOUSE</string>
+    <string name="level_string_2">EIFFEL TOWER</string>
+    <string name="level_string_3">TAJ MAHAL</string>
+    <string name="level_string_4">GOLDEN GATE BRIDGE</string>
+    <string name="level_string_5">COLOSSEUM</string>
+    <string name="level_string_6">Chichén Itzá</string>
+    <string name="level_string_7">PETRA</string>
+    <string name="level_string_8">GREAT WALL OF CHINA</string>
+    <string name="level_string_9">Christ the Redeemer</string>
+    <string name="level_string_10">EMPIRE STATE BUILDING</string>
 </resources>

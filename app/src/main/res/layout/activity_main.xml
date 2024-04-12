@@ -9,6 +9,7 @@
     android:paddingTop="24dp"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
+    android:paddingBottom="24dp"
     tools:context=".MainActivity">
     <ImageButton
         android:id="@+id/menu_btn"
@@ -16,6 +17,7 @@
         android:layout_height="24dp"
         android:src="@drawable/menu_btn"
         android:background="@android:color/transparent"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
@@ -24,11 +26,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
             android:src="@drawable/top_icon"
             android:layout_gravity="center"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="19dp"
             />
         <TextView
             android:id="@+id/text_title"
@@ -44,7 +46,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp">
+            android:layout_marginTop="32dp">
 
             <!-- Line before text -->
             <View
@@ -101,7 +103,7 @@
             android:id="@+id/level_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="32dp"
             />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

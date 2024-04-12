@@ -3,20 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="35dp">
+    android:paddingBottom="31dp">
 
     <ImageView
         android:id="@+id/image_view1"
-        android:layout_width="164dp"
-        android:layout_height="164dp"
+        android:layout_width="163dp"
+        android:layout_height="160dp"
         android:background="@drawable/locked_level"
         android:layout_alignParentStart="true"
         android:scaleType="centerCrop"/>
 
     <ImageView
         android:id="@+id/image_view2"
-        android:layout_width="164dp"
-        android:layout_height="164dp"
+        android:layout_width="163dp"
+        android:layout_height="160dp"
         android:background="@drawable/locked_level"
         android:layout_alignParentEnd="true"
         android:scaleType="centerCrop"/>

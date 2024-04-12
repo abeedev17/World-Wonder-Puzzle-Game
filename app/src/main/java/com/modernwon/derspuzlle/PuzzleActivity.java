@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +27,7 @@ public class PuzzleActivity extends AppCompatActivity {
     private GridLayout puzzleGrid;
     private List<Bitmap> originalPieces;
     private List<ImageView> views = new ArrayList<>();
+    private TextView mJigsawPuzzle;
     List<Bitmap> originalOrder = new ArrayList<>();
     List<Bitmap> reArrangeOrder = new ArrayList<>();
     List<Bitmap> currentOrder = new ArrayList<>();
@@ -38,15 +40,18 @@ public class PuzzleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_puzzle);
         puzzleGrid = findViewById(R.id.puzzleGrid);
         Button shuffleButton = findViewById(R.id.shuffleButton);
+        mJigsawPuzzle = findViewById(R.id.text_select_attraction);
 
         Intent intent = getIntent();
         int imagePos = intent.getIntExtra("image_pos", 0) + 1;
         String imageName = "level_img_";
-
-        Log.d("PuzzleActivity", "PuzzleImg imagePos = " + imagePos);
+        String wonderStringId = "level_string_";
 
         int imageResource = getResources().getIdentifier(imageName + imagePos, "drawable", getPackageName());
-        Log.d("PuzzleActivity", "PuzzleImg imageResource = " + imageResource);
+        int wonderTextResource = getResources().getIdentifier(wonderStringId + imagePos, "string", getPackageName());
+        String wonderTitle = getResources().getString(wonderTextResource);
+
+        mJigsawPuzzle.setText(wonderTitle.toUpperCase());
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -54,8 +59,8 @@ public class PuzzleActivity extends AppCompatActivity {
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
         int screenHeight = getResources().getDisplayMetrics().heightPixels;
 
-        int availableWidth = screenWidth - convertDpToPx(16 * 2);
-        int availableHeight = screenHeight - convertDpToPx(300 + 16 * 2);
+        int availableWidth = screenWidth - convertDpToPx(24 * 2);
+        int availableHeight = screenHeight - convertDpToPx(390);
 
         int gap = convertDpToPx(4);
         int totalGapWidth = (4 * gap); // 4 gaps between 5 columns
