@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
         mLevelRecyclerView = (RecyclerView) findViewById(R.id.level_recycler_view);
         mLevelRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
-        String[] imageNames = getResources().getStringArray(R.array.level_images);
+        String[] imageNames = getResources().getStringArray(R.array.level_icons);
 
         // Loop through the image names and get their resource IDs
         for (String imageName : imageNames) {
