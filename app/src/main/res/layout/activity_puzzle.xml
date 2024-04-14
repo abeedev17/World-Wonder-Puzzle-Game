@@ -101,13 +101,12 @@
                 android:id="@+id/puzzleGrid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/shuffleButton"
                 android:columnCount="5"
                 android:rowCount="7"
                 android:orientation="vertical"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="55dp"
+                android:layout_marginBottom="103dp"
                 android:background="@android:color/transparent"
                 android:useDefaultMargins="false">
             </GridLayout>
@@ -130,12 +129,95 @@
                     android:background="@color/line_shadow"
                     />
             </LinearLayout>
-            <Button
-                android:id="@+id/shuffleButton"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
-                android:text="Shuffle" />
+                android:paddingLeft="27dp"
+                android:paddingRight="27dp">
+                <RelativeLayout
+                    android:id="@+id/shuffle_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="4dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_img"
+                        android:background="@null" />
+                    <TextView
+                        android:id="@+id/shuffle_btn_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/plus_jakarta_sans"
+                        android:text="Shuffle"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textFontWeight="800"
+                        android:textSize="15dp"
+                        android:paddingBottom="10dp"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/next_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_img"
+                        android:background="@null" />
+
+                    <TextView
+                        android:id="@+id/next_btn_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/plus_jakarta_sans"
+                        android:paddingBottom="10dp"
+                        android:text="Next"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textFontWeight="800"
+                        android:textSize="15dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/about_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_img"
+                        android:background="@null" />
+                    <TextView
+                        android:id="@+id/about_btn_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/plus_jakarta_sans"
+                        android:text="About"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textFontWeight="800"
+                        android:textSize="15dp"
+                        android:paddingBottom="10dp"/>
+                </RelativeLayout>
+
+            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

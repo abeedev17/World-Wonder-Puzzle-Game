@@ -1,6 +1,7 @@
 package com.modernwon.derspuzlle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,7 +17,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +34,9 @@ public class PuzzleActivity extends AppCompatActivity {
     List<Bitmap> originalOrder = new ArrayList<>();
     List<Bitmap> reArrangeOrder = new ArrayList<>();
     List<Bitmap> currentOrder = new ArrayList<>();
+
+    RelativeLayout shuffleButton, nextButton, aboutButton;
+    TextView nextBtnText, aboutBtnText;
     private ImageView selectedPiece = null;
     private int pieceWidth = 0, pieceHeight = 0;
 
@@ -39,7 +45,17 @@ public class PuzzleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
         puzzleGrid = findViewById(R.id.puzzleGrid);
-        Button shuffleButton = findViewById(R.id.shuffleButton);
+        shuffleButton = (RelativeLayout) findViewById(R.id.shuffle_btn);
+        nextButton = (RelativeLayout) findViewById(R.id.next_btn);
+        aboutButton = (RelativeLayout) findViewById(R.id.about_btn);
+        nextBtnText = (TextView) findViewById(R.id.next_btn_text);
+        aboutBtnText = (TextView) findViewById(R.id.about_btn_text);
+
+        nextButton.setEnabled(false);
+        nextBtnText.setTextColor(ContextCompat.getColor(this, R.color.inactive_color));
+        aboutBtnText.setTextColor(ContextCompat.getColor(this, R.color.inactive_color));
+        aboutButton.setEnabled(false);
+
         mJigsawPuzzle = findViewById(R.id.text_select_attraction);
 
         Intent intent = getIntent();
@@ -93,6 +109,22 @@ public class PuzzleActivity extends AppCompatActivity {
             // Shuffle and re-initialize the puzzle
             Collections.shuffle(shuffledPieces);
             initializeGrid(shuffledPieces, pieceWidth, pieceHeight);
+        });
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getBaseContext(), "next", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getBaseContext(), "about", Toast.LENGTH_SHORT).show();
+
+            }
         });
     }
 
@@ -184,7 +216,10 @@ public class PuzzleActivity extends AppCompatActivity {
         }
         if (completed) {
             // Handle completion, e.g., show a message or close the activity
-            finish();
+            nextButton.setEnabled(true);
+            aboutButton.setEnabled(true);
+            nextBtnText.setTextColor(ContextCompat.getColor(this, R.color.active_color));
+            aboutBtnText.setTextColor(ContextCompat.getColor(this, R.color.active_color));
         }
     }
 
@@ -207,23 +242,6 @@ public class PuzzleActivity extends AppCompatActivity {
         for (int i = 0; i < reArrangeOrder.size(); i++) {
             if (reArrangeOrder.get(i).hashCode() != currentOrder.get(i).hashCode()) {
                 return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean bitmapEquals(Bitmap bitmap1, Bitmap bitmap2) {
-        if (bitmap1.getWidth() != bitmap2.getWidth() || bitmap1.getHeight() != bitmap2.getHeight()) {
-            Log.d("PuzzleActivity", "PieceSize wrong");
-            return false;
-        }
-        Log.d("PuzzleActivity", "PieceSize Right: (" + bitmap1.getWidth() + "," + bitmap1.getHeight() + ")" + ", (" + bitmap2.getWidth() +", " + bitmap2.getHeight() + ")");
-
-        for (int y = 0; y < bitmap1.getHeight(); y++) {
-            for (int x = 0; x < bitmap1.getWidth(); x++) {
-                if (bitmap1.getPixel(x, y) != bitmap2.getPixel(x, y)) {
-                    return false;
-                }
             }
         }
         return true;
