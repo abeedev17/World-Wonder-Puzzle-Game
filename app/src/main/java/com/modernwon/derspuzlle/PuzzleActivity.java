@@ -3,7 +3,9 @@ package com.modernwon.derspuzlle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -11,11 +13,13 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,9 +40,11 @@ public class PuzzleActivity extends AppCompatActivity {
     List<Bitmap> currentOrder = new ArrayList<>();
 
     RelativeLayout shuffleButton, nextButton, aboutButton;
+    ImageButton menuButton;
     TextView nextBtnText, aboutBtnText;
     private ImageView selectedPiece = null;
     private int pieceWidth = 0, pieceHeight = 0;
+    private int mLevel = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,22 @@ public class PuzzleActivity extends AppCompatActivity {
         aboutButton = (RelativeLayout) findViewById(R.id.about_btn);
         nextBtnText = (TextView) findViewById(R.id.next_btn_text);
         aboutBtnText = (TextView) findViewById(R.id.about_btn_text);
+        menuButton = (ImageButton) findViewById(R.id.menu_btn);
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyGamePrefs", Context.MODE_PRIVATE);
+
+        int defaultLevel = 1;
+        mLevel = sharedPreferences.getInt("currentLevel", defaultLevel);
+
+        Log.d("PuzzleActivity", "mLevel = " + mLevel);
 
         nextButton.setEnabled(false);
         nextBtnText.setTextColor(ContextCompat.getColor(this, R.color.inactive_color));
@@ -115,7 +137,12 @@ public class PuzzleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getBaseContext(), "next", Toast.LENGTH_SHORT).show();
-
+                SharedPreferences sharedPreferences = getSharedPreferences("MyGamePrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                int currentLevel = mLevel + 1;
+                editor.putInt("currentLevel", currentLevel);
+                editor.apply();
+                Log.d("PuzzleActivity", "mLevel Next = " + mLevel);
             }
         });
 

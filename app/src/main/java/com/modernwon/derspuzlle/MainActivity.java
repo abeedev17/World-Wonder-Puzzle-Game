@@ -2,8 +2,11 @@ package com.modernwon.derspuzlle;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -44,7 +47,12 @@ public class MainActivity extends Activity {
             }
         }
 
-        LevelImageAdapter mLevelImageAdapter = new LevelImageAdapter(mLeveImageDataList);
+        // Retrieve currentLevel from SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyGamePrefs", Context.MODE_PRIVATE);
+        int currentLevel = sharedPreferences.getInt("currentLevel", 1); // Default to 1 if not found
+
+        // Pass currentLevel and image list to adapter
+        LevelImageAdapter mLevelImageAdapter = new LevelImageAdapter(mLeveImageDataList, currentLevel);
         mLevelRecyclerView.setAdapter(mLevelImageAdapter);
     }
 }

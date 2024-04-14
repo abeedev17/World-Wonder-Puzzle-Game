@@ -17,9 +17,13 @@ import java.util.List;
 
 public class LevelImageAdapter extends RecyclerView.Adapter<LevelImageAdapter.ViewHolder> {
     private List<Integer> mImageList;
+    private int mCurrentLevel;
+
     private Context mContext;
-    public LevelImageAdapter(List<Integer> imageList) {
+    public LevelImageAdapter(List<Integer> imageList, int currentLevel) {
         mImageList = imageList;
+        mCurrentLevel = currentLevel;
+        Log.d("LevelImageAdapter", "mImageList = " + mImageList );
     }
     @NonNull
     @Override
@@ -31,14 +35,30 @@ public class LevelImageAdapter extends RecyclerView.Adapter<LevelImageAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull LevelImageAdapter.ViewHolder holder, int position) {
-        int imageResource1 = mImageList.get(position * 2);
-        int imageResource2 = 0;
-        if ((position * 2 + 1) < mImageList.size()) {
-            imageResource2 = mImageList.get(position * 2 + 1);
+        int index1 = position * 2;
+        int index2 = position * 2 + 1;
+
+        // Check if the first image index is within the current level
+        if (index1 < mCurrentLevel) {
+            holder.imageView1.setImageResource(mImageList.get(index1));
+        } else {
+            holder.imageView1.setImageResource(R.drawable.locked_level);  // Default image for beyond the current level
         }
-        holder.imageView1.setImageResource(imageResource1);
-        holder.imageView2.setImageResource(imageResource2);
+
+        // Check if the second image index is within the list and the current level
+        if (index2 < mImageList.size()) {
+            if (index2 < mCurrentLevel) {
+                holder.imageView2.setImageResource(mImageList.get(index2));
+            } else {
+                holder.imageView2.setImageResource(R.drawable.locked_level);  // Default image for beyond the current level
+            }
+            holder.imageView2.setVisibility(View.VISIBLE);
+        } else {
+            holder.imageView2.setVisibility(View.INVISIBLE);
+        }
     }
+
+
 
     @Override
     public int getItemCount() {
