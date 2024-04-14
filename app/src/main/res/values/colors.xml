@@ -7,4 +7,5 @@
     <color name="line_shadow">#778C8C</color>
     <color name="active_color">#FFFFFF</color>
     <color name="inactive_color">#707070</color>
+    <color name="about_color">#636C6D</color>
 </resources>

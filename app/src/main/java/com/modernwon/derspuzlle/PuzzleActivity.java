@@ -148,8 +148,10 @@ public class PuzzleActivity extends AppCompatActivity {
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "about", Toast.LENGTH_SHORT).show();
-
+                int levelIndex = getIntent().getIntExtra("image_pos", 0);
+                Intent intent = new Intent(PuzzleActivity.this, AboutActivity.class);
+                intent.putExtra("image_pos", levelIndex);
+                startActivity(intent);
             }
         });
 
