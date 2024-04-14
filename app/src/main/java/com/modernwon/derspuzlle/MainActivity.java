@@ -47,12 +47,24 @@ public class MainActivity extends Activity {
             }
         }
 
-        // Retrieve currentLevel from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyGamePrefs", Context.MODE_PRIVATE);
         int currentLevel = sharedPreferences.getInt("currentLevel", 1); // Default to 1 if not found
 
-        // Pass currentLevel and image list to adapter
         LevelImageAdapter mLevelImageAdapter = new LevelImageAdapter(mLeveImageDataList, currentLevel);
         mLevelRecyclerView.setAdapter(mLevelImageAdapter);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateLevels();
+    }
+
+    private void updateLevels() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyGamePrefs", Context.MODE_PRIVATE);
+        int currentLevel = sharedPreferences.getInt("currentLevel", 1);
+        LevelImageAdapter mLevelImageAdapter = new LevelImageAdapter(mLeveImageDataList, currentLevel);
+        mLevelRecyclerView.setAdapter(mLevelImageAdapter);
+    }
+
 }

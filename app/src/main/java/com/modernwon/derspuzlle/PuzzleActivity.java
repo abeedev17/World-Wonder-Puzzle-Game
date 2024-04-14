@@ -71,12 +71,6 @@ public class PuzzleActivity extends AppCompatActivity {
         int defaultLevel = 1;
         mLevel = sharedPreferences.getInt("currentLevel", defaultLevel);
 
-        Log.d("PuzzleActivity", "mLevel = " + mLevel);
-
-        nextButton.setEnabled(false);
-        nextBtnText.setTextColor(ContextCompat.getColor(this, R.color.inactive_color));
-        aboutBtnText.setTextColor(ContextCompat.getColor(this, R.color.inactive_color));
-        aboutButton.setEnabled(false);
 
         mJigsawPuzzle = findViewById(R.id.text_select_attraction);
 
@@ -136,13 +130,15 @@ public class PuzzleActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "next", Toast.LENGTH_SHORT).show();
-                SharedPreferences sharedPreferences = getSharedPreferences("MyGamePrefs", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                int currentLevel = mLevel + 1;
-                editor.putInt("currentLevel", currentLevel);
-                editor.apply();
-                Log.d("PuzzleActivity", "mLevel Next = " + mLevel);
+                int nextPuzzleIndex = getIntent().getIntExtra("image_pos", 0) + 1;
+                if (nextPuzzleIndex < mLevel) { // Ensure the next puzzle is within the unlocked levels
+                    Intent intent = new Intent(PuzzleActivity.this, PuzzleActivity.class);
+                    intent.putExtra("image_pos", nextPuzzleIndex);
+                    startActivity(intent);
+                    finish(); // Finish the current activity to avoid back stack build-up
+                } else {
+                    Toast.makeText(PuzzleActivity.this, "No more puzzles unlocked", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -153,6 +149,27 @@ public class PuzzleActivity extends AppCompatActivity {
 
             }
         });
+
+        int currentPuzzleIndex = getIntent().getIntExtra("image_pos", 0);
+        if (currentPuzzleIndex + 1 < mLevel) {
+            enableControls();
+        } else {
+            disableControls();
+        }
+    }
+
+    private void enableControls() {
+        nextButton.setEnabled(true);
+        aboutButton.setEnabled(true);
+        nextBtnText.setTextColor(ContextCompat.getColor(this, R.color.active_color));
+        aboutBtnText.setTextColor(ContextCompat.getColor(this, R.color.active_color));
+    }
+
+    private void disableControls() {
+        nextButton.setEnabled(false);
+        aboutButton.setEnabled(false);
+        nextBtnText.setTextColor(ContextCompat.getColor(this, R.color.inactive_color));
+        aboutBtnText.setTextColor(ContextCompat.getColor(this, R.color.inactive_color));
     }
 
     public int convertDpToPx(int dp) {
@@ -227,28 +244,22 @@ public class PuzzleActivity extends AppCompatActivity {
     }
 
     private void checkCompletion() {
-        boolean completed = true;
-        for (int i = 0; i < views.size(); i++) {
-            ImageView view = views.get(i);
-            Drawable drawable = view.getDrawable();
-            Bitmap currentPiece = drawableToBitmap(drawable);
-            if (compareOrders()) {
-                Log.d("PuzzleActivity", "RightPlace");
-            }
-            if (!compareOrders()) {
-                Log.d("PuzzleActivity", "Not RightPlace");
-                completed = false;
-                break;
-            }
-        }
+        boolean completed = compareOrders(); // Simplified the completion check to directly use the result of compareOrders.
         if (completed) {
-            // Handle completion, e.g., show a message or close the activity
-            nextButton.setEnabled(true);
-            aboutButton.setEnabled(true);
-            nextBtnText.setTextColor(ContextCompat.getColor(this, R.color.active_color));
-            aboutBtnText.setTextColor(ContextCompat.getColor(this, R.color.active_color));
+            Toast.makeText(this, "Puzzle Completed!", Toast.LENGTH_SHORT).show();
+
+            int completedPuzzleIndex = getIntent().getIntExtra("image_pos", 0);
+            if (completedPuzzleIndex + 1 == mLevel) {
+                mLevel++;
+                SharedPreferences sharedPreferences = getSharedPreferences("MyGamePrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("currentLevel", mLevel);
+                editor.apply();
+            }
+            enableControls();
         }
     }
+
 
     private Bitmap drawableToBitmap(Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {

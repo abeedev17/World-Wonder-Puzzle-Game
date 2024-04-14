@@ -21,8 +21,8 @@ public class LevelImageAdapter extends RecyclerView.Adapter<LevelImageAdapter.Vi
 
     private Context mContext;
     public LevelImageAdapter(List<Integer> imageList, int currentLevel) {
-        mImageList = imageList;
         mCurrentLevel = currentLevel;
+        mImageList = imageList;
         Log.d("LevelImageAdapter", "mImageList = " + mImageList );
     }
     @NonNull
@@ -101,4 +101,3 @@ public class LevelImageAdapter extends RecyclerView.Adapter<LevelImageAdapter.Vi
         }
     }
 }
-
