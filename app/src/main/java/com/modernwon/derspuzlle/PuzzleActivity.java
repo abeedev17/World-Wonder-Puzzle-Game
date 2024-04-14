@@ -25,6 +25,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +43,7 @@ public class PuzzleActivity extends AppCompatActivity {
 
     RelativeLayout shuffleButton, nextButton, aboutButton;
     ImageButton menuButton;
-    TextView nextBtnText, aboutBtnText;
+    TextView nextBtnText, aboutBtnText, jigsawPuzzleText;
     private ImageView selectedPiece = null;
     private int pieceWidth = 0, pieceHeight = 0;
     private int mLevel = 0;
@@ -51,12 +53,13 @@ public class PuzzleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
         puzzleGrid = findViewById(R.id.puzzleGrid);
-        shuffleButton = (RelativeLayout) findViewById(R.id.shuffle_btn);
-        nextButton = (RelativeLayout) findViewById(R.id.next_btn);
-        aboutButton = (RelativeLayout) findViewById(R.id.about_btn);
-        nextBtnText = (TextView) findViewById(R.id.next_btn_text);
-        aboutBtnText = (TextView) findViewById(R.id.about_btn_text);
-        menuButton = (ImageButton) findViewById(R.id.menu_btn);
+        shuffleButton = findViewById(R.id.shuffle_btn);
+        nextButton = findViewById(R.id.next_btn);
+        aboutButton = findViewById(R.id.about_btn);
+        nextBtnText = findViewById(R.id.next_btn_text);
+        aboutBtnText = findViewById(R.id.about_btn_text);
+        menuButton = findViewById(R.id.menu_btn);
+        jigsawPuzzleText = findViewById(R.id.jigsaw_puzzle);
 
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,6 +250,11 @@ public class PuzzleActivity extends AppCompatActivity {
         boolean completed = compareOrders(); // Simplified the completion check to directly use the result of compareOrders.
         if (completed) {
             Toast.makeText(this, "Puzzle Completed!", Toast.LENGTH_SHORT).show();
+
+            int successTextId = getResources().getIdentifier("success", "string", getPackageName());
+            String successText = getResources().getString(successTextId);
+
+            jigsawPuzzleText.setText(successText.toUpperCase());
 
             int completedPuzzleIndex = getIntent().getIntExtra("image_pos", 0);
             if (completedPuzzleIndex + 1 == mLevel) {

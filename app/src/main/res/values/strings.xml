@@ -3,7 +3,7 @@
     <string name="text_title">Modern Wonders Puzzle</string>
     <string name="select_attraction">SELECT AN ATTRACTION</string>
     <string name="jigsaw_puzzle">jigsaw puzzle</string>
-
+    <string name="success">success!</string>
     <string name="level_string_1">THE SYDNEY OPERA HOUSE</string>
     <string name="level_string_2">EIFFEL TOWER</string>
     <string name="level_string_3">TAJ MAHAL</string>
@@ -15,4 +15,6 @@
     <string name="level_string_9">Christ the Redeemer</string>
     <string name="level_string_10">EMPIRE STATE BUILDING</string>
     <string name="level_string_11">TEST</string>
+
+
 </resources>
