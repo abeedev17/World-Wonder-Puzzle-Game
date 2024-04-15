@@ -61,6 +61,9 @@ public class PuzzleActivity extends AppCompatActivity {
         menuButton = findViewById(R.id.menu_btn);
         jigsawPuzzleText = findViewById(R.id.jigsaw_puzzle);
 
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        decorView.setSystemUiVisibility(uiOptions);
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,11 +98,11 @@ public class PuzzleActivity extends AppCompatActivity {
         int screenHeight = getResources().getDisplayMetrics().heightPixels;
 
         int availableWidth = screenWidth - convertDpToPx(24 * 2);
-        int availableHeight = screenHeight - convertDpToPx(390);
+        int availableHeight = screenHeight - convertDpToPx(300);
 
         int gap = convertDpToPx(4);
-        int totalGapWidth = (4 * gap); // 4 gaps between 5 columns
-        int totalGapHeight = (6 * gap); // 6 gaps between 7 rows
+        int totalGapWidth = (4 * gap);
+        int totalGapHeight = (8 * gap);
 
         pieceWidth = (availableWidth - totalGapWidth) / 5;
         pieceHeight = (availableHeight - totalGapHeight) / 7;
@@ -123,6 +126,13 @@ public class PuzzleActivity extends AppCompatActivity {
 
         List<Bitmap> shuffledPieces = new ArrayList<>(originalPieces);
         Collections.shuffle(shuffledPieces);
+
+        if (pieceWidth < pieceHeight) {
+            pieceHeight = pieceWidth;
+        } else {
+            pieceWidth = pieceHeight;
+        }
+
         initializeGrid(shuffledPieces, pieceWidth, pieceHeight);
         shuffleButton.setOnClickListener(v -> {
             // Shuffle and re-initialize the puzzle

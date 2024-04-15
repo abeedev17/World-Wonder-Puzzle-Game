@@ -33,7 +33,7 @@
             android:text="@string/jigsaw_puzzle"
             android:textAllCaps="true"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:textSize="37dp"
             android:fontFamily="@font/plus_jakarta_sans"
             android:textFontWeight="800"
@@ -41,7 +41,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp">
+            android:layout_marginTop="30dp">
 
             <!-- Line before text -->
             <View
@@ -94,41 +94,44 @@
             android:layout_centerVertical="true"
             android:background="@color/line_shadow"
             />
+        <GridLayout
+            android:id="@+id/puzzleGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="5"
+            android:rowCount="7"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginRight="-4dp"
+            android:background="@android:color/transparent"
+            android:useDefaultMargins="false">
+        </GridLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_centerVertical="true"
+                android:background="@color/line"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_centerVertical="true"
+                android:background="@color/line_shadow"
+                />
+        </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <GridLayout
-                android:id="@+id/puzzleGrid"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:columnCount="5"
-                android:rowCount="7"
-                android:orientation="vertical"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="103dp"
-                android:background="@android:color/transparent"
-                android:useDefaultMargins="false">
-            </GridLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="80dp"
-                android:orientation="vertical">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:layout_centerVertical="true"
-                    android:background="@color/line"
-                    />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_centerVertical="true"
-                    android:background="@color/line_shadow"
-                    />
-            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

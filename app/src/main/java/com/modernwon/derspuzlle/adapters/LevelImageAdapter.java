@@ -2,6 +2,7 @@ package com.modernwon.derspuzlle.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,11 +77,14 @@ public class LevelImageAdapter extends RecyclerView.Adapter<LevelImageAdapter.Vi
             imageView1 = itemView.findViewById(R.id.image_view1);
             imageView2 = itemView.findViewById(R.id.image_view2);
 
+            SharedPreferences sharedPreferences = itemView.getContext().getSharedPreferences("MyGamePrefs", Context.MODE_PRIVATE);
+            int mLevel = sharedPreferences.getInt("currentLevel", 1);
+
             imageView1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition(); // Get the position of the item clicked
-                    if (position != RecyclerView.NO_POSITION) { // Check if the position is valid
+                    if (position != RecyclerView.NO_POSITION && position * 2 < mLevel) { // Check if the position is valid
                         startPuzzleActivity(position * 2); // Start PuzzleActivity with position * 2
                     }
                 }
@@ -90,7 +94,7 @@ public class LevelImageAdapter extends RecyclerView.Adapter<LevelImageAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition(); // Get the position of the item clicked
-                    if (position != RecyclerView.NO_POSITION) { // Check if the position is valid
+                    if (position != RecyclerView.NO_POSITION && (position * 2 + 1) < mLevel) { // Check if the position is valid
                         startPuzzleActivity(position * 2 + 1); // Start PuzzleActivity with position * 2 + 1
                     }
                 }
@@ -102,5 +106,6 @@ public class LevelImageAdapter extends RecyclerView.Adapter<LevelImageAdapter.Vi
             intent.putExtra("image_pos", pos);
             itemView.getContext().startActivity(intent);
         }
+
     }
 }

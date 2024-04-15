@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -48,9 +49,15 @@ public class MainActivity extends Activity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyGamePrefs", Context.MODE_PRIVATE);
         int currentLevel = sharedPreferences.getInt("currentLevel", 1);
 
+        Log.d("MainActivity", "currentLevel = " + currentLevel);
+
         LevelImageAdapter mLevelImageAdapter = new LevelImageAdapter(mLevelImageDataList, currentLevel);
         mLevelImageAdapter.setImageList(mLevelImageDataList);
         mLevelRecyclerView.setAdapter(mLevelImageAdapter);
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        decorView.setSystemUiVisibility(uiOptions);
     }
 
     @Override
