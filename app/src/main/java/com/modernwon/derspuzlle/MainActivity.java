@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -21,7 +20,19 @@ import java.util.List;
 
 public class MainActivity extends Activity {
     private RecyclerView mLevelRecyclerView;
-    private List<Integer> mLeveImageDataList = new ArrayList<>();
+    private List<Integer> mLevelImageDataList = new ArrayList<Integer>() {{
+        add(R.drawable.level_icon_1);
+        add(R.drawable.level_icon_2);
+        add(R.drawable.level_icon_3);
+        add(R.drawable.level_icon_4);
+        add(R.drawable.level_icon_5);
+        add(R.drawable.level_icon_6);
+        add(R.drawable.level_icon_7);
+        add(R.drawable.level_icon_8);
+        add(R.drawable.level_icon_9);
+        add(R.drawable.level_icon_10);
+    }};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,26 +42,14 @@ public class MainActivity extends Activity {
         Typeface typeface = ResourcesCompat.getFont(this, R.font.plus_jakarta_sans);
         textView.setTypeface(typeface, Typeface.BOLD);
 
-        mLevelRecyclerView = (RecyclerView) findViewById(R.id.level_recycler_view);
+        mLevelRecyclerView = findViewById(R.id.level_recycler_view);
         mLevelRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
-        String[] imageNames = getResources().getStringArray(R.array.level_icons);
-
-        // Loop through the image names and get their resource IDs
-        for (String imageName : imageNames) {
-            Log.d("MainActivity", "ImageName = " + imageName);
-            int resourceId = getResources().getIdentifier(imageName, "drawable", getPackageName());
-            Log.d("MainActivity", "resourceId = " + resourceId);
-            if (resourceId != 0) {
-                Log.d("MainActivity", "resourceId inside = " + resourceId);
-                mLeveImageDataList.add(resourceId);
-            }
-        }
-
         SharedPreferences sharedPreferences = getSharedPreferences("MyGamePrefs", Context.MODE_PRIVATE);
-        int currentLevel = sharedPreferences.getInt("currentLevel", 1); // Default to 1 if not found
+        int currentLevel = sharedPreferences.getInt("currentLevel", 1);
 
-        LevelImageAdapter mLevelImageAdapter = new LevelImageAdapter(mLeveImageDataList, currentLevel);
+        LevelImageAdapter mLevelImageAdapter = new LevelImageAdapter(mLevelImageDataList, currentLevel);
+        mLevelImageAdapter.setImageList(mLevelImageDataList);
         mLevelRecyclerView.setAdapter(mLevelImageAdapter);
     }
 
@@ -63,7 +62,8 @@ public class MainActivity extends Activity {
     private void updateLevels() {
         SharedPreferences sharedPreferences = getSharedPreferences("MyGamePrefs", Context.MODE_PRIVATE);
         int currentLevel = sharedPreferences.getInt("currentLevel", 1);
-        LevelImageAdapter mLevelImageAdapter = new LevelImageAdapter(mLeveImageDataList, currentLevel);
+        LevelImageAdapter mLevelImageAdapter = new LevelImageAdapter(mLevelImageDataList, currentLevel);
+        mLevelImageAdapter.setImageList(mLevelImageDataList);
         mLevelRecyclerView.setAdapter(mLevelImageAdapter);
     }
 

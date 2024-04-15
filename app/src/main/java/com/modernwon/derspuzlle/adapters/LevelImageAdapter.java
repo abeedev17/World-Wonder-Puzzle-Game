@@ -33,12 +33,15 @@ public class LevelImageAdapter extends RecyclerView.Adapter<LevelImageAdapter.Vi
         return new ViewHolder(view);
     }
 
+    public void setImageList(List<Integer> imageList) {
+        mImageList = imageList;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull LevelImageAdapter.ViewHolder holder, int position) {
         int index1 = position * 2;
         int index2 = position * 2 + 1;
 
-        // Check if the first image index is within the current level
         if (index1 < mCurrentLevel) {
             holder.imageView1.setImageResource(mImageList.get(index1));
         } else {
