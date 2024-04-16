@@ -33,6 +33,8 @@ import java.util.List;
 
 public class PuzzleActivity extends AppCompatActivity {
 
+    private static final String PREFS_NAME = "PuzzlePrefs";
+    private static final String STATE_KEY = "PuzzleState";
     private GridLayout puzzleGrid;
     private List<Bitmap> originalPieces;
     private List<ImageView> views = new ArrayList<>();
@@ -133,7 +135,15 @@ public class PuzzleActivity extends AppCompatActivity {
             pieceWidth = pieceHeight;
         }
 
-        initializeGrid(shuffledPieces, pieceWidth, pieceHeight);
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        int imagePos1 = getIntent().getIntExtra("image_pos", 0);
+        String savedState = prefs.getString(STATE_KEY + imagePos1, "");
+
+        if (!savedState.isEmpty()) {
+            restoreState(savedState);
+        } else {
+            initializeGrid(shuffledPieces, pieceWidth, pieceHeight);
+        }
         shuffleButton.setOnClickListener(v -> {
             // Shuffle and re-initialize the puzzle
             Collections.shuffle(shuffledPieces);
@@ -172,6 +182,48 @@ public class PuzzleActivity extends AppCompatActivity {
             disableControls();
         }
     }
+
+    protected void onPause() {
+        super.onPause();
+        saveCurrentState();
+    }
+
+    private void saveCurrentState() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        String state = getCurrentState();
+        if (!state.isEmpty()) {
+            editor.putString(STATE_KEY + getIntent().getIntExtra("image_pos", 0), state);
+            editor.apply();
+        }
+    }
+
+    private String getCurrentState() {
+        StringBuilder stateBuilder = new StringBuilder();
+        for (ImageView imageView : views) {
+            Bitmap currentBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            int index = originalPieces.indexOf(currentBitmap);
+            if (index != -1) { // Ensure the bitmap is found in the list
+                stateBuilder.append(index).append(",");
+            }
+        }
+        return stateBuilder.toString();
+    }
+
+    private void restoreState(String savedState) {
+        String[] indices = savedState.split(",");
+        List<Bitmap> restoredPieces = new ArrayList<>();
+        for (String indexStr : indices) {
+            try {
+                int index = Integer.parseInt(indexStr);
+                restoredPieces.add(originalPieces.get(index));
+            } catch (NumberFormatException e) {
+                Log.e("PuzzleActivity", "Error parsing index for restoration: " + indexStr, e);
+            }
+        }
+        initializeGrid(restoredPieces, pieceWidth, pieceHeight);
+    }
+
 
     private void enableControls() {
         nextButton.setEnabled(true);
